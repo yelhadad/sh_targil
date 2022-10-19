@@ -10,6 +10,10 @@ __pycache__/
 # C extensions
 *.so
 
+#test-files
+ziped_files
+text_files
+
 # Distribution / packaging
 .Python
 build/
