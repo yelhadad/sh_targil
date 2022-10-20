@@ -12,8 +12,8 @@ def check_if_4_files(directory_path, file_format):
 def main():
 
     arr = ['a', 'b', 'c', 'd']
-    text_files_path = './text_files'
-    zip_files_path = './ziped_files'
+    text_files_path = 'tmp/text_files'
+    zip_files_path = 'tmp/ziped_files'
 
     # make sure the script fails if this function doesnt work
     for x in arr:
