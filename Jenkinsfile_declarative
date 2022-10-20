@@ -13,7 +13,7 @@ node {
             steps {
                 rtServer (
                     id: 'my-artifactory',
-                    url: 'http://my-artifactory-domain/artifactory',
+                    url: 'http://34.125.252.19:8081/artifactory/',
                     username: 'super-user',
                     password: 'Qw123456!',
                   )
@@ -25,7 +25,7 @@ node {
                         "files": [
                          {
                             "pattern": "/tmp/ziped_files",
-                            "target": "."
+                            "target": "/test"
                           }
                         ]
                     }''',
