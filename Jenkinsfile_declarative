@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker { image 'yelhadad/shabak' }
+        docker { image 'yelhadad/shabak:1' }
     }
 
     stages {
