@@ -1,23 +1,37 @@
 node {
     agent {
-        docker { image 'yelhadad/shabak:4'}
-    }
-    stage('Build') {
-        sh 'python3 /tmp/zip_job,py'
+        docker { image 'yelhadad/shabak:4' }
     }
 
-    stage('Publish') {
-        steps {
-            def server = Artifactory.newServer url: 'some-url', username: 'super-user', password: 'Qw123456!'
-            def uploadSpec = """ {
-                "files": [
-                {
-                   "pattern": "/tmp/ziped_files",
-                   "target": "."
-                 }
-                ]
-            }"""
-            server.upload spec: uploadSpec
+    stages {
+        stage('Build') {
+            steps {
+                sh 'python3 /tmp/zip_job.py'
+            }
+        }
+        stage('Publish') {
+            steps {
+                rtServer (
+                    id: 'my-artifactory',
+                    url: 'http://my-artifactory-domain/artifactory',
+                    username: 'super-user',
+                    password: 'Qw123456!',
+                  )
+                
+                
+                rtUpload (
+                    serverId: 'my-artifactory',
+                    spec: '''{
+                        "files": [
+                         {
+                            "pattern": "/tmp/ziped_files",
+                            "target": "."
+                          }
+                        ]
+                    }''',
+                
+                
+            }
         }
     }
 }
