@@ -13,6 +13,7 @@ __pycache__/
 #test-files
 ziped_files
 text_files
+jenkins
 
 # Distribution / packaging
 .Python
