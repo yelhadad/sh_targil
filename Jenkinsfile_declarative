@@ -11,7 +11,26 @@ pipeline {
         }
         stage('Publish') {
             steps {
-                sh 'curl -uadmin:APAAkZ354d9wQeLTjZeuQbZCfyu -T /tmp/ziped_files "http://localhost:8081/artifactory/example-repo-local/test/"'
+                rtServer (
+                    id: 'my-artifactory',
+                    url: 'http://my-artifactory-domain/artifactory',
+                    username: 'super-user',
+                    password: 'Qw123456!',
+                  )
+                
+                
+                rtUpload (
+                    serverId: 'my-artifactory',
+                    spec: '''{
+                        "files": [
+                         {
+                            "pattern": "/tmp/ziped_files",
+                            "target": "."
+                          }
+                        ]
+                    }''',
+                
+                
             }
         }
     }
