@@ -9,7 +9,7 @@ pipeline {
                 sh 'python3 /tmp/zip_job.py'
             }
         }
-    }
+    
         stage('Publish') {
             steps {
                 rtServer (
@@ -34,5 +34,6 @@ pipeline {
                 
             }
 
+      }
     }
 }
