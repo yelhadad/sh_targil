@@ -6,6 +6,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh 'docker pull yelhadad/shabak'
                 sh 'python3 /tmp/zip_job.py'
             }
         }
