@@ -1,18 +1,23 @@
-pipeline {
+node {
     agent {
-        docker { image 'yelhadad/shabak:1' }
+        docker { image 'yelhadad/shabak:4'}
+    }
+    stage('Build') {
+        sh 'python3 /tmp/zip_job,py'
     }
 
-    stages {
-        stage('Build') {
-            steps {
-                sh 'python3 /tmp/zip_job.py'
-            }
-        }
-        stage('Publish') {
-            steps {
-                sh 'curl -uadmin:APAAkZ354d9wQeLTjZeuQbZCfyu -T /tmp/ziped_files "http://localhost:8081/artifactory/example-repo-local/test/"'
-            }
+    stage('Publish') {
+        steps {
+            def server = Artifactory.newServer url: 'some-url', username: 'super-user', password: 'Qw123456!'
+            def uploadSpec = """ {
+                "files": [
+                {
+                   "pattern": "/tmp/ziped_files",
+                   "target": "."
+                 }
+                ]
+            }"""
+            server.upload spec: uploadSpec
         }
     }
 }
