@@ -44,6 +44,22 @@ pipeline {
                 subject: 'shabak job',
                 to: 'yoave14@gmail.com'
         }
+
+        post {
+            always {
+                echo 'cleaning workspace'
+                deleteDir() /* clean up our workspace */
+            }
+            success {
+                emailext body: 'pipeline succeeded',
+                    subject: 'pipeline succeeded',
+                    to: 'yoave14@gmail.com'
+            }
+            failure {
+                emailext body: 'pipeline failed',
+                    subject: 'pipeline failed',
+                    to: 'yoave14@gmail.com'
+            }
       }
     }
 }
