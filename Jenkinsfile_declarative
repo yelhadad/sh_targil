@@ -45,8 +45,8 @@ pipeline {
                 to: 'yoave14@gmail.com'
         }
       }
-
-        post {
+    }
+    post {
             always {
                 echo 'cleaning workspace'
                 deleteDir() /* clean up our workspace */
@@ -62,5 +62,4 @@ pipeline {
                     to: 'yoave14@gmail.com'
             }
       }
-    }
 }
