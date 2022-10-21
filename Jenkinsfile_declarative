@@ -12,7 +12,7 @@ pipeline {
     
         stage('Publish') {
             steps {
-                sh 'ls /tmp'
+                sh 'ls /tmp/ziped_files'
                 rtServer (
                     id: 'my-artifactory',
                     url: 'http://34.125.252.19:8081/artifactory/',
