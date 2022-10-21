@@ -35,15 +35,13 @@ pipeline {
                           }
                         ]
                     }''',)
-                
-                
             }
       }
 
       stage('Report') {
         steps {
-            emailext body: 'Upload pipeline succeeded',
-                subject: 'shabak targil'
+            emailext body: 'pipeline succeeded',
+                subject: 'shabak job',
                 to: 'yoave14@gmail.com'
         }
       }
