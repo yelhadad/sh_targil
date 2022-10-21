@@ -17,7 +17,7 @@ pipeline {
                     id: 'my-artifactory',
                     url: 'http://34.125.252.19:8081/artifactory/',
                     username: 'super-user',
-                    password: 'Qw123456!',
+                    password: 'Qw12856!',
                   )
                 
                 
