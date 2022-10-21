@@ -44,6 +44,7 @@ pipeline {
                 subject: 'shabak job',
                 to: 'yoave14@gmail.com'
         }
+      }
 
         post {
             always {
