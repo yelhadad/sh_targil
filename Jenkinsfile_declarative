@@ -3,7 +3,7 @@ pipeline {
         docker { image 'yelhadad/shabak:4'
                  args '--privileged'   
          }
-        label 'zip-job-docker'
+        //label 'zip-job-docker'
     }
 
     stages {
