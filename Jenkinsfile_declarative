@@ -18,7 +18,8 @@ pipeline {
             steps {
 
                 //setting vertion env inside the pipeline
-                env.VERSION = sh(script:’echo $VERSION’, returnStdout: true).trim()
+                sh 'echo %VERSION > version.txt'
+                env.VERSION = sh(script:’echo version.txt’, returnStdout: true).trim()
                 echo "${VERSION}"
 
                 // coping the created files (artifactory plugin does not reconize them on temp)
