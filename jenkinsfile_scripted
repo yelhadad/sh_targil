@@ -16,7 +16,7 @@ node {
                 "files": [
                 {
                   "pattern": "ziped_files/*.zip",
-                  "target": "binary-storage/z${VERSION}/"
+                  "target": "binary-storage/zip${VERSION}/"
                  }
                 ]
             }"""
