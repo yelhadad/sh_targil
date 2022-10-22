@@ -9,6 +9,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh 'ls /tmp/ziped_files'
                 sh 'python3 /tmp/zip_job.py'
             }
         }
