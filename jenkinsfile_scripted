@@ -1,5 +1,6 @@
 node {
-    docker.image('yelhadad/shabak:5').inside('--privileged') {
+  try {
+docker.image('yelhadad/shabak:5').inside('--privileged') {
         stage('Build') {
         sh 'python3 /tmp/zip_job.py'
     }
@@ -22,25 +23,30 @@ node {
             }"""
             server.upload spec: uploadSpec
         }
-    }
-        post {
-            always {
-                echo 'cleaning workspace'
-                deleteDir() 
-            }
-            success {
-                echo 'sending success job email'
-                emailext body: 'pipeline succeeded',
-                    subject: 'pipeline succeeded',
-                    to: 'yoave14@gmail.com'
-            }
-            failure {
-                echo 'sending failure job email'
-                emailext body: 'pipeline failed',
-                    subject: 'pipeline failed',
-                    to: 'yoave14@gmail.com'
-            }
-      }
 
-}
+        stage('Report') {
+          echo 'sending failure job email'
+          emailext body: 'pipeline failed',
+            subject: 'pipeline failed',
+            to: 'yoave14@gmail.com'
+        }
+    }
+  }
+
+  catch(exc) {
+    stage('Report') {
+    echo 'sending failure job email'
+    emailext body: 'pipeline failed',
+      subject: 'pipeline failed',
+      to: 'yoave14@gmail.com'
+    }
+
+    }
+    finally {
+                      echo 'cleaning workspace'
+                deleteDir() 
+    }
+  }
+    
+
     
