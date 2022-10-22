@@ -18,6 +18,7 @@ pipeline {
                 sh 'ls /tmp/ziped_files'
                 sh 'touch h3.txt'
                 sh 'cd /tmp/ziped_files'
+                sh 'pwd'
                 
                 rtUpload (
                     serverId: 'artifactory',
