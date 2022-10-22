@@ -19,6 +19,9 @@ pipeline {
                 sh 'touch h3.txt'
                 sh 'cd /tmp/ziped_files'
                 sh 'pwd'
+                sh 'mkdir ziped_files'
+                sh 'cp -r /tmp/ziped_files .'
+                sh 'ls ziped_files'
                 
                 rtUpload (
                     serverId: 'artifactory',
@@ -26,7 +29,7 @@ pipeline {
                     spec: '''{
                         "files": [
                          {
-                            "pattern": "/tmp/ziped_files/a_1.2.0.zip",
+                            "pattern": "ziped_files/*.zip",
                             "target": "binary-storage/test_zip/"
                           }
                         ]
