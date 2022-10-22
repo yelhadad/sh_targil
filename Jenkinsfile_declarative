@@ -18,7 +18,7 @@ pipeline {
             steps {
 
                 //setting vertion env inside the pipeline
-                env.VERSION = sh(script:'echo $VERSION', returnStdout: true).trim()
+                  echo "${VERSION}"
 
                 // coping the created files (artifactory plugin does not reconize them on temp)
                 sh 'mkdir ziped_files'
