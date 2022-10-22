@@ -1,24 +1,45 @@
 node {
-    agent {
-<<<<<<< HEAD
-        docker { image 'yelhadad/shabak:4'}
-    }
-    stage('Build') {
+    docker.image('yelhadad/shabak:5').inside('--privileged -e VERSION=$VERSION') {
+        stage('Build') {
         sh 'python3 /tmp/zip_job,py'
     }
 
     stage('Publish') {
         steps {
-            def server = Artifactory.newServer url: 'some-url', username: 'super-user', password: 'Qw123456!'
+            // coping the created files (artifactory plugin does not reconize them on temp)
+            sh 'mkdir ziped_files'
+            sh 'cp -r /tmp/ziped_files .'
+            sh 'ls ziped_files'
+            def server = Artifactory.server 'artifactory'
             def uploadSpec = """ {
                 "files": [
                 {
-                   "pattern": "/tmp/ziped_files",
-                   "target": "."
+                  "pattern": "ziped_files/*.zip",
+                  "target": "binary-storage/z_/"
                  }
                 ]
             }"""
             server.upload spec: uploadSpec
         }
     }
+        post {
+            always {
+                echo 'cleaning workspace'
+                deleteDir() /* clean up our workspace */
+            }
+            success {
+                echo 'sending success job email'
+                emailext body: 'pipeline succeeded',
+                    subject: 'pipeline succeeded',
+                    to: 'yoave14@gmail.com'
+            }
+            failure {
+                echo 'sending failure job email'
+                emailext body: 'pipeline failed',
+                    subject: 'pipeline failed',
+                    to: 'yoave14@gmail.com'
+            }
+      }
 }
+}
+    

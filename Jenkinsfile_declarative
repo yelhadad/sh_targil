@@ -1,7 +1,8 @@
 pipeline {
+    // need to add label somehow
     agent {
         docker { image 'yelhadad/shabak:5'
-                 args '--privileged'   
+                 args '--privileged -e VERSION=$VERSION'   
          }
         //label 'zip-job-docker'
     }
@@ -15,10 +16,7 @@ pipeline {
     
         stage('Publish') {
             steps {
-                sh 'ls /tmp/ziped_files'
-                sh 'touch h3.txt'
-                sh 'cd /tmp/ziped_files'
-                sh 'pwd'
+                // coping the created files (artifactory plugin does not reconize them on temp)
                 sh 'mkdir ziped_files'
                 sh 'cp -r /tmp/ziped_files .'
                 sh 'ls ziped_files'
@@ -37,13 +35,6 @@ pipeline {
             }
       }
 
-      stage('Report') {
-        steps {
-            emailext body: 'pipeline succeeded',
-                subject: 'shabak job',
-                to: 'yoave14@gmail.com'
-        }
-      }
     }
     post {
             always {
@@ -51,11 +42,13 @@ pipeline {
                 deleteDir() /* clean up our workspace */
             }
             success {
+                echo 'sending success job email'
                 emailext body: 'pipeline succeeded',
                     subject: 'pipeline succeeded',
                     to: 'yoave14@gmail.com'
             }
             failure {
+                echo 'sending failure job email'
                 emailext body: 'pipeline failed',
                     subject: 'pipeline failed',
                     to: 'yoave14@gmail.com'
