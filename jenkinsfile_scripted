@@ -43,8 +43,11 @@ docker.image('yelhadad/shabak:5').inside('--privileged') {
 
     }
     finally {
-                      echo 'cleaning workspace'
-                deleteDir() 
+      stage('Cleanup') {
+        echo 'cleaning workspace'
+        deleteDir()
+      }
+ 
     }
   }
     
