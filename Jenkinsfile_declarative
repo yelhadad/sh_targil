@@ -2,7 +2,7 @@ pipeline {
     // need to add label somehow
     agent {
         docker { image 'yelhadad/shabak:5'
-                 args '--privileged -e VERSION=$VERSION'   
+                 args '--privileged'   
          }
         //label 'zip-job-docker'
     }
@@ -16,6 +16,10 @@ pipeline {
     
         stage('Publish') {
             steps {
+
+                //setting vertion env inside the pipeline
+                env.VERSION = sh(script:'echo $VERSION', returnStdout: true).trim()
+
                 // coping the created files (artifactory plugin does not reconize them on temp)
                 sh 'mkdir ziped_files'
                 sh 'cp -r /tmp/ziped_files .'

@@ -1,5 +1,5 @@
 node {
-    docker.image('yelhadad/shabak:5').inside('--privileged -e VERSION=$VERSION') {
+    docker.image('yelhadad/shabak:5').inside('--privileged') {
         stage('Build') {
         sh 'python3 /tmp/zip_job,py'
     }
