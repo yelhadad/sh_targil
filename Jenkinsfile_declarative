@@ -9,7 +9,6 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'ls /tmp/ziped_files'
                 sh 'python3 /tmp/zip_job.py'
             }
         }
@@ -26,7 +25,7 @@ pipeline {
                     spec: '''{
                         "files": [
                          {
-                            "pattern": "*.zip",
+                            "pattern": "/tmp/ziped_files/*.zip",
                             "target": "binary-storage/test_zip/"
                           }
                         ]
