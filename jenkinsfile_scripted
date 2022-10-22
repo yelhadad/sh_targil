@@ -6,17 +6,18 @@ node {
 
     stage('Publish') {
         steps {
-            echo "${VERSION}"
+            env.VERSION = sh(script:'echo $VERSION', returnStdout: true).trim()
             // coping the created files (artifactory plugin does not reconize them on temp)
             sh 'mkdir ziped_files'
             sh 'cp -r /tmp/ziped_files .'
             sh 'ls ziped_files'
+
             def server = Artifactory.server 'artifactory'
             def uploadSpec = """ {
                 "files": [
                 {
                   "pattern": "ziped_files/*.zip",
-                  "target": "binary-storage/z_/"
+                  "target": "binary-storage/z${VERSION}/"
                  }
                 ]
             }"""
@@ -26,7 +27,7 @@ node {
         post {
             always {
                 echo 'cleaning workspace'
-                deleteDir() /* clean up our workspace */
+                deleteDir() 
             }
             success {
                 echo 'sending success job email'

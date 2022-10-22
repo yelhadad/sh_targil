@@ -4,19 +4,21 @@ pipeline {
         docker { image 'yelhadad/shabak:5'
                  args '--privileged'   
          }
-        //label 'zip-job-docker'
+        //label 'zip-job-docker?'
     }
 
     stages {
         stage('Build') {
             steps {
+                // run the python script
                 sh 'python3 /tmp/zip_job.py'
             }
         }
     
         stage('Publish') {
             steps {
-
+                
+                // parsing the VERSION env to jenkins pipeline env
                 script {
                     env.VERSION = sh(script:'echo $VERSION', returnStdout: true).trim()
                 }
@@ -24,7 +26,7 @@ pipeline {
                 sh 'echo %VERSION > version.txt'
                 echo "${VERSION}"
 
-                // coping the created files (artifactory plugin does not reconize them on temp)
+                // coping the created files (artifactory plugin does not reconize them on tmp)
                 sh 'mkdir ziped_files'
                 sh 'cp -r /tmp/ziped_files .'
                 sh 'ls ziped_files'
@@ -47,7 +49,7 @@ pipeline {
     post {
             always {
                 echo 'cleaning workspace'
-                deleteDir() /* clean up our workspace */
+                deleteDir() 
             }
             success {
                 echo 'sending success job email'
