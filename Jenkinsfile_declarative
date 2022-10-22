@@ -19,7 +19,7 @@ pipeline {
                 sh 'touch /tmp/h2.txt'
                 rtServer (
                     id: 'my-artifactory',
-                    url: 'http://artifactory.shoppinglistapp.info/artifactory/',
+                    url: 'http://artifactory.shoppinglistapp.info1111111/artifactory/',
                     username: 'super-user',
                     password: 'Qw12856!',
                     bypassProxy: true,
