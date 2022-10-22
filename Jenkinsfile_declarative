@@ -32,8 +32,8 @@ pipeline {
                     spec: '''{
                         "files": [
                          {
-                            "pattern": "/etc/hosts",
-                            "target": "/binary-storage/testt"
+                            "pattern": "/tmp/*.zip",
+                            "target": "binary-storage/testt"
                           }
                         ]
                     }''',)
