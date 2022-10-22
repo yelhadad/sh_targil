@@ -5,7 +5,6 @@ node {
     }
 
     stage('Publish') {
-        steps {
             env.VERSION = sh(script:'echo $VERSION', returnStdout: true).trim()
             // coping the created files (artifactory plugin does not reconize them on temp)
             sh 'mkdir ziped_files'
@@ -42,6 +41,6 @@ node {
                     to: 'yoave14@gmail.com'
             }
       }
-}
+
 }
     
