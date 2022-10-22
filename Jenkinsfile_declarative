@@ -32,14 +32,14 @@ pipeline {
                 rtUpload (
                     serverId: 'artifactory',
                     failNoOp: true,
-                    spec: '''{
+                    spec: """{
                         "files": [
                          {
                             "pattern": "ziped_files/*.zip",
-                            "target": "binary-storage/test_zip/"
+                            "target": "binary-storage/z${VERSION}/"
                           }
                         ]
-                    }''',)
+                    }""",)
             }
       }
 
