@@ -46,26 +46,35 @@ pipeline {
     post {
             success {
                 stage('Report') {
+                    steps{
                     echo 'sending success job email'
                     emailext body: 'pipeline succeeded',
                         subject: 'pipeline succeeded',
                         to: 'yoave14@gmail.com'
+                    }
+
                 }
 
             }
             failure {
                 stage('Report') {
+                    steps {
                     echo 'sending failure job email'
                     emailext body: 'pipeline failed',
                         subject: 'pipeline failed',
-                        to: 'yoave14@gmail.com'
+                        to: 'yoave14@gmail.com'                        
+                    }
+
                 }
 
             }
             always {
                 stage('Cleanup') {
+                    steps {
                     echo 'cleaning workspace'
-                    deleteDir()
+                    deleteDir()                        
+                    }
+
                 }
  
             }
