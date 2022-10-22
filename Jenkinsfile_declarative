@@ -22,9 +22,6 @@ pipeline {
                 script {
                     env.VERSION = sh(script:'echo $VERSION', returnStdout: true).trim()
                 }
-                //setting vertion env inside the pipeline
-                sh 'echo %VERSION > version.txt'
-                echo "${VERSION}"
 
                 // coping the created files (artifactory plugin does not reconize them on tmp)
                 sh 'mkdir ziped_files'
@@ -47,21 +44,30 @@ pipeline {
 
     }
     post {
-            always {
-                echo 'cleaning workspace'
-                deleteDir() 
-            }
             success {
-                echo 'sending success job email'
-                emailext body: 'pipeline succeeded',
-                    subject: 'pipeline succeeded',
-                    to: 'yoave14@gmail.com'
+                stage('Report') {
+                    echo 'sending success job email'
+                    emailext body: 'pipeline succeeded',
+                        subject: 'pipeline succeeded',
+                        to: 'yoave14@gmail.com'
+                }
+
             }
             failure {
-                echo 'sending failure job email'
-                emailext body: 'pipeline failed',
-                    subject: 'pipeline failed',
-                    to: 'yoave14@gmail.com'
+                stage('Report') {
+                    echo 'sending failure job email'
+                    emailext body: 'pipeline failed',
+                        subject: 'pipeline failed',
+                        to: 'yoave14@gmail.com'
+                }
+
+            }
+            always {
+                stage('Cleanup') {
+                    echo 'cleaning workspace'
+                    deleteDir()
+                }
+ 
             }
       }
 }
