@@ -25,7 +25,7 @@ pipeline {
                     spec: '''{
                         "files": [
                          {
-                            "pattern": "/tmp/ziped_files/*.zip",
+                            "pattern": "a_1.2.0.zip",
                             "target": "binary-storage/test_zip/"
                           }
                         ]
