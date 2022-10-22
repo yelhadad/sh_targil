@@ -16,7 +16,8 @@ pipeline {
         stage('Publish') {
             steps {
                 sh 'ls /tmp/ziped_files'
-                sh 'touch h2.txt'
+                sh 'touch h3.txt'
+                sh 'pwd'
                 rtServer (
                     id: 'my-artifactory',
                     url: 'http://artifactory.shoppinglistapp.info1111111/artifactory/',
