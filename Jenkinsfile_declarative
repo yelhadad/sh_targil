@@ -32,7 +32,7 @@ pipeline {
                     spec: '''{
                         "files": [
                          {
-                            "pattern": "/tmp/hi.txt",
+                            "pattern": "/etc/hosts",
                             "target": "/binary-storage/testt"
                           }
                         ]
