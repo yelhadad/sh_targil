@@ -1,7 +1,6 @@
 import sys, zipfile, os, fnmatch
 
-VERSION = '1.2.0'
-#VERSION = os.environ["VERSION"]
+VERSION = os.environ["VERSION"]
 
 
 """return true if there are 4 files in the provided directory and format
