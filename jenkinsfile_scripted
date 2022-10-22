@@ -6,6 +6,7 @@ node {
 
     stage('Publish') {
         steps {
+            echo "${VERSION}"
             // coping the created files (artifactory plugin does not reconize them on temp)
             sh 'mkdir ziped_files'
             sh 'cp -r /tmp/ziped_files .'
