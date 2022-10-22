@@ -33,7 +33,7 @@ pipeline {
                         "files": [
                          {
                             "pattern": "/tmp/ziped_files/*.zip",
-                            "target": "binary-storage"
+                            "target": "binary-storage/"
                           }
                         ]
                     }''',)
