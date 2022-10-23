@@ -26,7 +26,7 @@ def main():
     # fail the script if this step doesnt work
     for x in arr:
         zipfile_name = f'{zip_files_path}/{x}_{VERSION}.zip'
-        zipfile.ZipFile(zipfile_name, mode='w').write(f'{text_files_path}/{x}.txt')
+        zipfile.ZipFile(zipfile_name, mode='w').write(f'{text_files_path}/{x}.txt', f'{x}.txt')
     if check_if_4_files(zip_files_path, 'zip') is False:
         sys.exit('not all zip files created')
 
