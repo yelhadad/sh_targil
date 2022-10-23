@@ -1,8 +1,9 @@
 pipeline {
     agent {
-        label 'zip-job-docker'
+        
         docker { image 'yelhadad/shabak:5'
-                 args '--privileged'   
+                 args '--privileged'  
+                 label 'zip-job-docker' 
          }
     }
 
