@@ -23,9 +23,9 @@ pipeline {
                 }
 
                 // coping the created files (artifactory plugin does not reconize them on tmp)
-                sh 'mkdir ziped_files'
-                sh 'cp -r /tmp/ziped_files .'
-                sh 'ls ziped_files'
+                sh 'mkdir zipped_files'
+                sh 'cp -r /tmp/zipped_files .'
+
                 
                 rtUpload (
                     serverId: 'artifactory',
@@ -33,7 +33,7 @@ pipeline {
                     spec: """{
                         "files": [
                          {
-                            "pattern": "ziped_files/*.zip",
+                            "pattern": "zipped_files/*.zip",
                             "target": "binary-storage/z${VERSION}/"
                           }
                         ]

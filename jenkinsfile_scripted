@@ -12,16 +12,15 @@ node {
         env.VERSION = sh(script:'echo $VERSION', returnStdout: true).trim()
 
         // coping the created files (artifactory plugin does not reconize them on temp)
-        sh 'mkdir -p ziped_files'
-        sh 'cp -r /tmp/ziped_files .'
-        sh 'ls ziped_files'
+        sh 'mkdir -p zipped_files'
+        sh 'cp -r /tmp/zipped_files .'
 
         // uploading zipped files to artifactory
         def server = Artifactory.server 'artifactory'
         def uploadSpec = """ {
           "files": [
             {
-              "pattern": "ziped_files/*.zip",
+              "pattern": "zipped_files/*.zip",
               "target": "binary-storage/zip${VERSION}/"
             }
           ]
