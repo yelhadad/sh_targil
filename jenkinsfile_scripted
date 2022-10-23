@@ -1,48 +1,55 @@
 node {
   label 'zip-job-docker'
   try {
-docker.image('yelhadad/shabak:5').inside('--privileged') {
-        stage('Build') {
-        sh 'python3 /tmp/zip_job.py'
+    docker.image('yelhadad/shabak:6').inside('--privileged') {
+      stage('Build') {
+      sh 'python3 /tmp/zip_job.py'
     }
 
-    stage('Publish') {
-            env.VERSION = sh(script:'echo $VERSION', returnStdout: true).trim()
-            // coping the created files (artifactory plugin does not reconize them on temp)
-            sh 'mkdir -p ziped_files'
-            sh 'cp -r /tmp/ziped_files .'
-            sh 'ls ziped_files'
+      stage('Publish') {
 
-            def server = Artifactory.server 'artifactory'
-            def uploadSpec = """ {
-                "files": [
-                {
-                  "pattern": "ziped_files/*.zip",
-                  "target": "binary-storage/zip${VERSION}/"
-                 }
-                ]
-            }"""
-            server.upload spec: uploadSpec
-        }
+        // parsing the VERSION env to jenkins pipeline env
+        env.VERSION = sh(script:'echo $VERSION', returnStdout: true).trim()
 
-        stage('Report') {
-          echo 'sending failure job email'
-          emailext body: 'pipeline failed',
-            subject: 'pipeline failed',
-            to: 'yoave14@gmail.com'
-        }
+        // coping the created files (artifactory plugin does not reconize them on temp)
+        sh 'mkdir -p ziped_files'
+        sh 'cp -r /tmp/ziped_files .'
+        sh 'ls ziped_files'
+
+        // uploading zipped files to artifactory
+        def server = Artifactory.server 'artifactory'
+        def uploadSpec = """ {
+          "files": [
+            {
+              "pattern": "ziped_files/*.zip",
+              "target": "binary-storage/zip${VERSION}/"
+            }
+          ]
+        }"""
+        server.upload spec: uploadSpec
+      }
+
+      // sending success email
+      stage('Report') {
+        echo 'sending success job email'
+        emailext body: 'Scripted pipeline successed :)',
+          subject: 'pipeline successed',
+          to: 'yoave14@gmail.com'
+      }
     }
   }
 
+  // runs this block if one of the aboved stages failed
   catch(exc) {
     stage('Report') {
     echo 'sending failure job email'
-    emailext body: 'pipeline failed',
+    emailext body: 'Scripted pipeline failed :(',
       subject: 'pipeline failed',
       to: 'yoave14@gmail.com'
     }
+  }
 
-    }
+    // run this stage always
     finally {
       stage('Cleanup') {
         echo 'cleaning workspace'

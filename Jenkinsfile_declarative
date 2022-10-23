@@ -1,7 +1,6 @@
 pipeline {
     agent {
-        
-        docker { image 'yelhadad/shabak:5'
+        docker { image 'yelhadad/shabak:6'
                  args '--privileged'  
                  label 'zip-job-docker' 
          }
@@ -41,24 +40,24 @@ pipeline {
                     }""",)
             }
         }
-
     }
+
     post {
-            success {
-                echo 'sending success job email'
-                emailext body: 'pipeline succeeded',
-                    subject: 'pipeline succeeded',
-                    to: 'yoave14@gmail.com'
-            }
-            failure {
-                echo 'sending failure job email'
-                emailext body: 'pipeline failed',
-                    subject: 'pipeline failed',
-                    to: 'yoave14@gmail.com'
-            }
-            always {
-                echo 'cleaning workspace'
-                deleteDir() 
-            }
-      }
+        success {
+            echo 'sending success job email'
+            emailext body: ' Declarative pipeline succeeded ',
+                subject: 'pipeline succeeded',
+                to: 'yoave14@gmail.com'
+        }
+        failure {
+            echo 'sending failure job email'
+            emailext body: 'Declarative pipeline failed',
+                subject: 'pipeline failed',
+                to: 'yoave14@gmail.com'
+        }
+        always {
+            echo 'cleaning workspace'
+            deleteDir() 
+        }
+    }
 }

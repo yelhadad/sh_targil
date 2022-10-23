@@ -13,7 +13,7 @@ def main():
 
     arr = ['a', 'b', 'c', 'd']
     text_files_path = '/tmp/text_files'
-    zip_files_path = '/tmp/ziped_files'
+    zip_files_path = '/tmp/zipped_files'
 
     # make sure the script fails if this function doesnt work
     for x in arr:
