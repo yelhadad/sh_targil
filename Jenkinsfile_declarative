@@ -1,10 +1,9 @@
 pipeline {
-    // need to add label somehow
     agent {
+        label 'zip-job-docker'
         docker { image 'yelhadad/shabak:5'
                  args '--privileged'   
          }
-        //label 'zip-job-docker?'
     }
 
     stages {
@@ -40,7 +39,7 @@ pipeline {
                         ]
                     }""",)
             }
-      }
+        }
 
     }
     post {

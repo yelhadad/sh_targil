@@ -1,4 +1,5 @@
 node {
+  label 'zip-job-docker'
   try {
 docker.image('yelhadad/shabak:5').inside('--privileged') {
         stage('Build') {
