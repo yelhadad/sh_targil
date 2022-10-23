@@ -1,7 +1,7 @@
 node {
   label 'zip-job-docker'
   try {
-    docker.image('yelhadad/shabak:6').inside('--privileged') {
+    docker.image('yelhadad/shabak:7').inside('--privileged') {
       stage('Build') {
       sh 'python3 /tmp/zip_job.py'
     }
